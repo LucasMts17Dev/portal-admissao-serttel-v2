@@ -48,7 +48,7 @@ const handler = NextAuth({
           role: usuario.role,
           filial: usuario.filial,
         };
-      },
+      },    
     }),
   ],
   callbacks: {
@@ -57,3 +57,26 @@ const handler = NextAuth({
         token.id = user.id;
         token.role = (user as any).role;
         token.filial = (user as any).filial;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role;
+        (session.user as any).filial = token.filial;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: '/login',
+  },
+  session: {
+    strategy: 'jwt',
+    maxAge: 60 * 60 * 8, // 8 horas
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+});
+
+export { handler as GET, handler as POST };
