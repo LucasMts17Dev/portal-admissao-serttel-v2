@@ -48,7 +48,8 @@ export default function LoginPage() {
         <div className="bg-[#111c44]/60 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl relative">
           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#046c3b] via-[#00ff87] to-transparent rounded-t-3xl" />
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          {/* MUDANÇA AQUI: Adicionado method="POST" para travar o comportamento do NextAuth */}
+          <form onSubmit={handleLogin} method="POST" className="space-y-5">
             <div className="flex flex-col gap-2">
               <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">E-mail</label>
               <input
@@ -85,8 +86,7 @@ export default function LoginPage() {
               disabled={carregando}
               className="w-full bg-gradient-to-r from-[#046c3b] to-[#00ff87] text-white font-black text-sm py-3 rounded-xl shadow-[0_0_20px_rgba(0,255,135,0.25)] hover:brightness-110 active:scale-[0.985] transition-all disabled:opacity-40 cursor-pointer"
             >
-              {carregando ? (
-                <span className="flex items-center justify-center gap-2">
+              {carregando ? (                <span className="flex items-center justify-center gap-2">
                   <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   Verificando…
                 </span>
