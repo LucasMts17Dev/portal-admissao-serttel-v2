@@ -9,13 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/supabase-adapter": "^1.11.2",
     "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.110.0",
+    "bcryptjs": "^3.0.3",
     "next": "14.2.15",
+    "next-auth": "^4.24.14",
     "pdfjs-dist": "^4.7.124",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "20.14.15",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
