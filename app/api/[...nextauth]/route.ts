@@ -14,7 +14,11 @@ const handler = NextAuth({
         senha: { label: 'Senha', type: 'password' },
       },
       async authorize(credentials) {
+        console.log('🔐 Tentativa de login:', credentials?.email);
+
         if (!credentials?.email || !credentials?.senha) return null;
+
+        console.log('📡 Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
 
         const supabase = createClient(
           process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -28,9 +32,13 @@ const handler = NextAuth({
           .eq('ativo', true)
           .single();
 
+        console.log('👤 Usuário encontrado:', usuario?.email, '| Erro:', error?.message);
+
         if (error || !usuario) return null;
 
         const senhaCorreta = await bcrypt.compare(credentials.senha, usuario.senha_hash);
+        console.log('🔑 Senha correta:', senhaCorreta);
+
         if (!senhaCorreta) return null;
 
         return {
@@ -49,26 +57,3 @@ const handler = NextAuth({
         token.id = user.id;
         token.role = (user as any).role;
         token.filial = (user as any).filial;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).id = token.id;
-        (session.user as any).role = token.role;
-        (session.user as any).filial = token.filial;
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: '/login',
-  },
-  session: {
-    strategy: 'jwt',
-    maxAge: 60 * 60 * 8,
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-});
-
-export { handler as GET, handler as POST };
