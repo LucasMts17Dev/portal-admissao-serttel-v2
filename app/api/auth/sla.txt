@@ -1,0 +1,17 @@
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1a2ltdmJvYXlnYnV6a2VwYXJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyOTc1OTgsImV4cCI6MjA5ODg3MzU5OH0.QwIv7zJbOvqxz5rilLlBLm5VSuTgHI1sw5tkyjf-byk
+
+
+
+SUPABASE_SERVICE_ROLE_KEY
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1a2ltdmJvYXlnYnV6a2VwYXJxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MzI5NzU5OCwiZXhwIjoyMDk4ODczNTk4fQ.IXoY9uwkKvD6HHvF9glXxnUudPuO_Fot_wQvAW-2hCc
+
+
+
+https://supabase.com/dashboard/project/eukimvboaygbuzkeparq/settings/general
+
+
+qual é o email e senha ?
+
+E-mail: dp@serttel.com.br
+Senha: senha123
