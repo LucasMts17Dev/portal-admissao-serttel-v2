@@ -196,7 +196,7 @@ function InputArquivo({
 // ─── Componente Principal ─────────────────────────────────────────────────────
 
 export default function AuditoriaPage() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   const [exigeMilitar, setExigeMilitar] = useState<boolean | null>(null);
   const [exigeDependentes, setExigeDependentes] = useState<boolean | null>(null);

@@ -10,7 +10,7 @@ interface Dependente {
 
 export default function FormularioPage() {
   // Estado do Tema (Futurista / Clássico-Claro)
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   // Estados de Controle Geral
   const [hasDependents, setHasDependents] = useState<boolean | null>(null);
@@ -337,7 +337,7 @@ export default function FormularioPage() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-400 uppercase">Estado Civil *</label>
-                <select value={estadoCivil} onChange={(e) => setEstadoCivil(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm bg-white outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
+                <select value={estadoCivil} onChange={(e) => setEstadoCivil(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
                   <option value="">Selecione...</option>
                   <option value="solteiro">Solteiro(a)</option>
                   <option value="casado">Casado(a)</option>
@@ -354,7 +354,7 @@ export default function FormularioPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-400 uppercase">Escolaridade *</label>
-                <select value={escolaridade} onChange={(e) => setEscolaridade(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm bg-white outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
+                <select value={escolaridade} onChange={(e) => setEscolaridade(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
                   <option value="">Selecione...</option>
                   <option value="fundamental">Ensino Fundamental</option>
                   <option value="medio">Ensino Médio</option>
@@ -364,7 +364,7 @@ export default function FormularioPage() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-400 uppercase">Raça / Etnia *</label>
-                <select value={etnia} onChange={(e) => setEtnia(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm bg-white outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
+                <select value={etnia} onChange={(e) => setEtnia(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
                   <option value="">Selecione...</option>
                   <option value="branca">Branca</option>
                   <option value="preta">Preta</option>
@@ -375,7 +375,7 @@ export default function FormularioPage() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-400 uppercase">Sexo / Gênero *</label>
-                <select value={sexo} onChange={(e) => setSexo(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm bg-white outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
+                <select value={sexo} onChange={(e) => setSexo(e.target.value)} className={`w-full border rounded-xl px-4 py-2.5 text-sm outline-none transition-colors ${darkMode ? 'bg-[#0f172a]/60 border-slate-800 text-white focus:border-[#00ff87]' : 'bg-white border-slate-200 text-slate-800 focus:border-[#046c3b]'} print:border-none print:p-0 print:font-bold print:bg-transparent`}>
                   <option value="">Selecione...</option>
                   <option value="masculino">Masculino</option>
                   <option value="feminino">Feminino</option>
