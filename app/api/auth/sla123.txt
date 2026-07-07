@@ -8,7 +8,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1a2ltdmJ
 
 
 
-https://supabase.com/dashboard/project/eukimvboaygbuzkeparq/settings/general
+supabase.com/dashboard/project/eukimvboaygbuzkeparq/settings/general
 
 
 qual é o email e senha ?
