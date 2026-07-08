@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import BackButton from '../components/BackButton';
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -207,14 +208,18 @@ export default function AuditoriaPage() {
   const [status, setStatus] = useState<StatusValidacao>('aguardando');
   const [respostaIA, setRespostaIA] = useState('');
   const [mostrarAlertaManual, setMostrarAlertaManual] = useState(false);
+  const [avisoArquivo, setAvisoArquivo] = useState('');
+  const [avisoValidacao, setAvisoValidacao] = useState('');
 
   // ── Handlers ──────────────────────────────────────────────────────────────
 
   function handleArquivo(campo: CampoArquivo, file: File | null) {
     if (file && file.size > 5 * 1024 * 1024) {
-      alert('⚠️ Arquivo muito grande. O limite é 5 MB por documento.');
+      setAvisoArquivo('Arquivo muito grande. O limite é 5 MB por documento.');
+      setTimeout(() => setAvisoArquivo(''), 5000);
       return;
     }
+    setAvisoArquivo('');
     setArquivos((prev) => ({ ...prev, [campo]: file }));
   }
 
@@ -263,11 +268,12 @@ export default function AuditoriaPage() {
 
     const faltando = obrigatorios.some((c) => !arquivos[c]);
     if (faltando) {
-      alert('❌ Preencha todos os 5 documentos obrigatórios e a Ficha Cadastral antes de continuar.');
+      setAvisoValidacao('Preencha todos os 5 documentos obrigatórios e a Ficha Cadastral antes de continuar.');
       return;
     }
 
     try {
+      setAvisoValidacao('');
       setStatus('processando');
       setMostrarAlertaManual(false);
       setRespostaIA('Preparando documentos para análise…');
@@ -388,6 +394,8 @@ export default function AuditoriaPage() {
           : 'bg-slate-50 text-slate-800'
       }`}
     >
+      <BackButton />
+
       {/* Glows decorativos */}
       {darkMode && (
         <>
@@ -546,6 +554,12 @@ export default function AuditoriaPage() {
               </p>
             </div>
 
+            {avisoArquivo && (
+              <div className="p-3 bg-amber-950/40 border border-amber-500/30 text-amber-400 text-xs font-bold rounded-xl">
+                ⚠️ {avisoArquivo}
+              </div>
+            )}
+
             {/* Obrigatórios */}
             <div
               className={`border rounded-2xl p-4 space-y-4 ${
@@ -693,6 +707,12 @@ export default function AuditoriaPage() {
                 </span>
               )}
             </div>
+
+            {avisoValidacao && (
+              <div className="p-3 bg-red-950/40 border border-red-500/30 text-red-400 text-xs font-bold rounded-xl">
+                ❌ {avisoValidacao}
+              </div>
+            )}
 
             <button
               type="button"

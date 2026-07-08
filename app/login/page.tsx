@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import BackButton from '../components/BackButton';
 
 export default function LoginPage() {
   const [darkMode, setDarkMode] = useState(false); // Padrão Claro configurado como false
@@ -37,7 +38,8 @@ export default function LoginPage() {
     <div className={`min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden transition-colors duration-300 ${
       darkMode ? 'bg-[#0b132b] text-slate-100' : 'bg-slate-50 text-slate-800'
     }`}>
-      
+      <BackButton />
+
       {/* Botão de alternar tema fixado no topo direito */}
       <div className="absolute top-5 right-5 z-50">
         <button
