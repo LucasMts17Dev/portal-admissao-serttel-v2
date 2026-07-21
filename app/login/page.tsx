@@ -2,16 +2,18 @@
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import BackButton from '../components/BackButton';
 
 export default function LoginPage() {
-  const [darkMode, setDarkMode] = useState(false); // Padrão Claro configurado como false
+  const [darkMode, setDarkMode] = useState(false);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const from = searchParams.get('from') || '/auditoria';
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -25,7 +27,7 @@ export default function LoginPage() {
     });
 
     if (result?.ok) {
-      router.push('/auditoria');
+      router.push(from);
     } else {
       setErro('E-mail ou senha incorretos.');
       setCarregando(false);

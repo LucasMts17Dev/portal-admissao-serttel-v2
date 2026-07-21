@@ -63,7 +63,7 @@ export default function Home() {
           Selecione como deseja acessar
         </p>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card Admissão do Candidato */}
           <Link
             href="/admissao"
@@ -107,6 +107,31 @@ export default function Home() {
               </h2>
               <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                 Acessar módulo de auditoria
+              </p>
+              <span className={`inline-flex items-center gap-1 text-[11px] font-bold mt-4 opacity-0 group-hover:opacity-100 transition-opacity ${verdeText}`}>
+                Acessar →
+              </span>
+            </div>
+          </Link>
+
+          {/* Card Gestão DP */}
+          <Link
+            href="/dp"
+            className={`group relative rounded-2xl border p-8 text-left overflow-hidden transition-all duration-300 ${
+              darkMode 
+                ? 'border-slate-800 bg-[#111c44]/50 backdrop-blur-xl hover:border-[#00ff87] hover:shadow-[0_0_30px_rgba(0,255,135,0.15)]' 
+                : 'border-slate-200 bg-white hover:border-[#046c3b] hover:shadow-lg'
+            }`}
+          >
+            <div className="relative">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#046c3b] to-[#00ff87] flex items-center justify-center text-lg mb-5 shadow-[0_0_15px_rgba(0,255,135,0.3)]">
+                ⚙️
+              </div>
+              <h2 className={`text-lg font-black mb-1 tracking-tight ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+                Sou DP
+              </h2>
+              <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                Gestão de documentos aprovados
               </p>
               <span className={`inline-flex items-center gap-1 text-[11px] font-bold mt-4 opacity-0 group-hover:opacity-100 transition-opacity ${verdeText}`}>
                 Acessar →

@@ -5,7 +5,7 @@ import BackButton from '../components/BackButton';
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
-type StatusValidacao = 'aguardando' | 'processando' | 'sucesso' | 'erro';
+type StatusValidacao = 'aguardando' | 'processando' | 'sucesso' | 'erro' | 'aguardando_janela';
 
 type CampoArquivo =
   | 'carteiraTrabalho'
@@ -254,6 +254,70 @@ export default function AuditoriaPage() {
     if (!v) limparCampos(['cnh', 'certidaoDetran']);
   }
 
+  // ── FASE 3: Verificação da janela do DP ─────────────────────────────────────
+
+  async function verificarJanelaDP(): Promise<{ liberado: boolean; mensagem: string }> {
+    try {
+      const res = await fetch('/api/dp/configuracao');
+      if (!res.ok) {
+        return {
+          liberado: false,
+          mensagem: 'Fora de prazo de envio. Entre em contato para liberação.',
+        };
+      }
+
+      const resposta = await res.json();
+      const config = resposta?.data;
+
+      if (!config) {
+        return {
+          liberado: false,
+          mensagem: 'Fora de prazo de envio. Entre em contato para liberação.',
+        };
+      }
+
+      // 1. DP ativo?
+      if (!config.ativo) {
+        return {
+          liberado: false,
+          mensagem: 'Fora de prazo de envio. Entre em contato para liberação.',
+        };
+      }
+
+      // 2. Dia do mês permitido?
+      const diaAtual = new Date().getDate();
+      const diasPermitidos: number[] = config.dias_mes ?? [];
+      if (!diasPermitidos.includes(diaAtual)) {
+        return {
+          liberado: false,
+          mensagem: 'Fora de prazo de envio. Entre em contato para liberação.',
+        };
+      }
+
+      // 3. Horário permitido?
+      const agora = new Date();
+      const horaAtual = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
+      const horaInicio: string = config.hora_inicio ?? '00:00';
+      const horaFim: string = config.hora_fim ?? '23:59';
+
+      if (horaAtual < horaInicio || horaAtual > horaFim) {
+        return {
+          liberado: false,
+          mensagem: 'Fora de prazo de envio. Entre em contato para liberação.',
+        };
+      }
+
+      // 4. Passou em todas as verificações
+      return { liberado: true, mensagem: '' };
+    } catch (err) {
+      console.error('Erro ao verificar janela do DP:', err);
+      return {
+        liberado: false,
+        mensagem: 'Fora de prazo de envio. Entre em contato para liberação.',
+      };
+    }
+  }
+
   // ── Auditoria ─────────────────────────────────────────────────────────────
 
   async function handleAuditoria() {
@@ -343,16 +407,27 @@ export default function AuditoriaPage() {
       }
 
       const texto: string = data.texto;
-      setRespostaIA(texto);
-
       const upper = texto.toUpperCase();
+
       if (upper.includes('REJEITADO') || upper.includes('DIVERGÊNCIA')) {
+        setRespostaIA(texto);
         setStatus('erro');
         if (upper.includes('MANUAL') || upper.includes('ILEGÍVEL') || upper.includes('ILEGIVEL')) {
           setMostrarAlertaManual(true);
         }
       } else {
-        setStatus('sucesso');
+        // Documento aprovado pela IA — agora consulta a janela do DP (FASE 3)
+        setRespostaIA(texto + '\n\nConsultando disponibilidade do DP…');
+
+        const { liberado, mensagem } = await verificarJanelaDP();
+
+        if (liberado) {
+          setStatus('sucesso');
+          setRespostaIA(texto + '\n\n✅ Documento enviado automaticamente para Gestão DP!');
+        } else {
+          setStatus('aguardando_janela');
+          setRespostaIA(texto + `\n\n⏳ ${mensagem}`);
+        }
       }
     } catch (error: any) {
       console.error('Erro na auditoria:', error);
@@ -373,6 +448,8 @@ export default function AuditoriaPage() {
     if (status === 'processando') return 'bg-[#1c2e42]/50 text-blue-400 border-blue-500/40';
     if (status === 'sucesso')
       return 'bg-[#0a2f1d]/60 text-emerald-400 border-[#00ff87]/30 shadow-[0_0_15px_rgba(0,255,135,0.1)]';
+    if (status === 'aguardando_janela')
+      return 'bg-amber-950/40 text-amber-400 border-amber-500/30';
     return 'bg-red-950/40 text-red-400 border-red-500/30';
   }
 
